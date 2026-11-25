@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HockeyManager — Моды</title>
-  <meta name="description" content="Скачивайте моды для HockeyManager: актуальные составы, календари и лиги." />
+  <meta name="description" content="Скачивайте игру и моды для HockeyManager: актуальные составы, календари и лиги." />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
   <link rel="stylesheet" href="assets/styles.css" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏒</text></svg>" />
@@ -18,6 +18,7 @@
       <span class="brand-name">HockeyManager<b>Моды</b></span>
     </div>
     <nav class="site-nav">
+      <a href="#game">Скачать игру</a>
       <a href="#mods">Моды</a>
       <a href="#" id="howBtn">Как добавить</a>
     </nav>
@@ -36,6 +37,11 @@
         <input id="search" type="search" placeholder="Поиск по названию, автору или описанию…" autocomplete="off" />
         <span class="search-icon" aria-hidden="true">🔍</span>
       </div>
+    </section>
+
+    <section id="game" class="game-section" aria-labelledby="gameTitle">
+      <h2 id="gameTitle">Скачать игру</h2>
+      <div class="game-links" id="gameLinks"></div>
     </section>
 
     <section id="mods" class="mods-grid" aria-live="polite">
@@ -69,6 +75,8 @@
   "url": "https://drive.google.com/file/d/ID_ФАЙЛА/view?usp=sharing"
 }</code></pre>
       <p class="hint">Для Google Диска укажите название и описание сами — сайт не может прочитать архив на Диске.</p>
+      <h3>Ссылки на скачивание игры</h3>
+      <p class="hint">Добавьте/измените массив <code>game.links</code> в <code>manifest.json</code> — они появятся в блоке «Скачать игру».</p>
     </div>
   </div>
 

@@ -148,6 +148,39 @@
     render(f);
   }
 
+  // ---------- Game download section ----------
+  function gameIcon(url, file) {
+    const s = (url || file || "").toLowerCase();
+    if (s.indexOf("apk") !== -1) return "🤖";
+    if (s.indexOf("portable") !== -1) return "💾";
+    if (s.indexOf(".exe") !== -1 || s.indexOf("setup") !== -1) return "🪟";
+    return "⬇";
+  }
+
+  function renderGame(game) {
+    const section = document.getElementById("game");
+    const wrap = document.getElementById("gameLinks");
+    const titleEl = document.getElementById("gameTitle");
+    if (!section || !wrap) return;
+    if (!game || !Array.isArray(game.links) || !game.links.length) {
+      section.hidden = true;
+      return;
+    }
+    section.hidden = false;
+    if (game.title && titleEl) titleEl.textContent = game.title;
+    wrap.innerHTML = game.links
+      .map(function (l) {
+        const label = l.label || l.file || "Скачать";
+        const fn = l.file || "";
+        return `<a class="game-btn" href="${esc(l.url)}" download>
+          <span class="game-ico">${gameIcon(l.url, l.file)}</span>
+          <span class="game-txt"><b>${esc(label)}</b>${fn ? `<small>${esc(fn)}</small>` : ""}</span>
+          <span class="game-arrow" aria-hidden="true">↓</span>
+        </a>`;
+      })
+      .join("");
+  }
+
   // ---------- Modal ----------
   function setupModal() {
     const modal = document.getElementById("howModal");
@@ -178,6 +211,8 @@
     if (manifest.title) heroTitle.textContent = manifest.title;
     if (manifest.subtitle) heroSub.textContent = manifest.subtitle;
     document.title = manifest.title || "HockeyManager — Моды";
+
+    renderGame(manifest.game);
 
     const entries = Array.isArray(manifest.mods) ? manifest.mods : [];
     const mods = await Promise.all(entries.map(loadMod));

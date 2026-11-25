@@ -159,6 +159,40 @@ body {
 /* Footer */
 .site-footer { position: relative; z-index: 1; text-align: center; color: var(--muted); font-size: 13px; padding: 30px 20px 50px; }
 
+/* Game download section */
+.game-section {
+  position: relative; z-index: 1;
+  max-width: var(--maxw); margin: 8px auto 0; padding: 18px 20px 0; text-align: center;
+}
+.game-section h2 {
+  font-size: clamp(20px, 3vw, 26px); margin: 0 0 16px; font-weight: 800;
+  color: var(--text);
+}
+.game-links {
+  display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+}
+.game-btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  text-decoration: none; color: var(--text);
+  background: linear-gradient(180deg, var(--surface-2), var(--surface));
+  border: 1px solid var(--border); border-radius: 14px;
+  padding: 14px 18px; min-width: 200px; text-align: left;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.game-btn:hover {
+  transform: translateY(-3px); border-color: rgba(56,225,255,.45);
+  box-shadow: 0 16px 36px rgba(0,0,0,.45);
+}
+.game-ico {
+  font-size: 26px; width: 44px; height: 44px; flex: none; display: grid; place-items: center;
+  border-radius: 12px; background: radial-gradient(circle at 30% 25%, rgba(56,225,255,.35), rgba(108,140,255,.18));
+  border: 1px solid var(--border);
+}
+.game-txt { display: flex; flex-direction: column; line-height: 1.2; }
+.game-txt b { font-size: 15px; }
+.game-txt small { color: var(--muted); font-size: 12px; margin-top: 2px; word-break: break-all; }
+.game-arrow { margin-left: auto; font-size: 20px; color: var(--accent); font-weight: 800; }
+
 /* Modal */
 .modal-backdrop {
   position: fixed; inset: 0; z-index: 50; display: grid; place-items: center;

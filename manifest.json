@@ -1,6 +1,26 @@
 {
   "title": "HockeyManager — Моды",
-  "subtitle": "Скачивайте моды для вашей игры. Актуальные составы, календари и лиги.",
+  "subtitle": "Скачивайте игру и моды: актуальные составы, календари и лиги.",
+  "game": {
+    "title": "Скачать игру",
+    "links": [
+      {
+        "label": "Windows — установщик",
+        "file": "KHL-GM-Setup.exe",
+        "url": "https://github.com/ClubGames/KHL_Manager/releases/download/app/KHL-GM-Setup.exe"
+      },
+      {
+        "label": "Windows — портативная",
+        "file": "KHL-GM-Portable.exe",
+        "url": "https://github.com/ClubGames/KHL_Manager/releases/download/app/KHL-GM-Portable.exe"
+      },
+      {
+        "label": "Android — APK",
+        "file": "KHL-GM.apk",
+        "url": "https://github.com/ClubGames/KHL_Manager/releases/download/app/KHL-GM.apk"
+      }
+    ]
+  },
   "mods": [
     {
       "source": "repo",
