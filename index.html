@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HockeyManager — Моды</title>
+  <meta name="description" content="Скачивайте игру и моды для HockeyManager: актуальные составы, календари и лиги." />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏒</text></svg>" />
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-logo" aria-hidden="true">🏒</span>
+      <span class="brand-name">HockeyManager<b>Моды</b></span>
+    </div>
+    <nav class="site-nav">
+      <a href="#game">Скачать игру</a>
+      <a href="#mods">Моды</a>
+      <a href="#" id="howBtn">Как добавить</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1 id="heroTitle">HockeyManager — Моды</h1>
+      <p id="heroSubtitle" class="hero-sub">Скачивайте моды для вашей игры.</p>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num" id="statCount">0</span><span class="stat-label">модов</span></div>
+        <div class="stat"><span class="stat-num">ZIP</span><span class="stat-label">формат</span></div>
+        <div class="stat"><span class="stat-num">🆓</span><span class="stat-label">бесплатно</span></div>
+      </div>
+      <div class="search-wrap">
+        <input id="search" type="search" placeholder="Поиск по названию, автору или описанию…" autocomplete="off" />
+        <span class="search-icon" aria-hidden="true">🔍</span>
+      </div>
+    </section>
+
+    <section id="game" class="game-section" aria-labelledby="gameTitle">
+      <h2 id="gameTitle">Скачать игру</h2>
+      <div class="game-links" id="gameLinks"></div>
+    </section>
+
+    <section id="mods" class="mods-grid" aria-live="polite">
+      <div class="loading">Загрузка модов…</div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Моды для HockeyManager. Все права на игру принадлежат правообладателям.</p>
+  </footer>
+
+  <!-- Modal "Как добавить мод" -->
+  <div class="modal-backdrop" id="howModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="howTitle">
+      <button class="modal-close" id="howClose" aria-label="Закрыть">×</button>
+      <h2 id="howTitle">Как добавить мод</h2>
+      <p>Отредактируйте файл <code>manifest.json</code> в репозитории. Добавьте запись в массив <code>mods</code>:</p>
+      <h3>1. Архив из папки <code>mods/</code> репозитория</h3>
+      <pre><code>{
+  "source": "repo",
+  "file": "mods/khl-2026-27.zip"
+}</code></pre>
+      <p class="hint">Данные (название, описание, автор, версия) берутся автоматически из <code>mod.json</code> внутри архива.</p>
+      <h3>2. Ссылка на Google Диск</h3>
+      <pre><code>{
+  "source": "drive",
+  "name": "НХЛ 2026/27",
+  "description": "Описание мода…",
+  "author": "ВашНик",
+  "version": "1.0",
+  "url": "https://drive.google.com/file/d/ID_ФАЙЛА/view?usp=sharing"
+}</code></pre>
+      <p class="hint">Для Google Диска укажите название и описание сами — сайт не может прочитать архив на Диске.</p>
+      <h3>Ссылки на скачивание игры</h3>
+      <p class="hint">Добавьте/измените массив <code>game.links</code> в <code>manifest.json</code> — они появятся в блоке «Скачать игру».</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
