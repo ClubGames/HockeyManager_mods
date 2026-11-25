@@ -1,5 +1,5 @@
 {
-  "title": "HockeyManager — Моды",
+  "title": "HockeyManager — Моды на игру",
   "subtitle": "Скачивайте игру и моды: актуальные составы, календари и лиги.",
   "game": {
     "title": "Скачать игру",
@@ -24,7 +24,7 @@
   "mods": [
     {
       "source": "repo",
-      "file": "mods/khl-2026-27.zip"
+      "file": "mods/KHL2627_mod.zip"
     }
   ]
 }
