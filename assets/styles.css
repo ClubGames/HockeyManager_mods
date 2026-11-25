@@ -26,7 +26,6 @@ body {
   background: radial-gradient(1200px 700px at 80% -10%, #14224a 0%, transparent 60%),
               radial-gradient(900px 600px at -10% 10%, #1a1030 0%, transparent 55%),
               linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
-  background-attachment: fixed;
   min-height: 100vh;
   line-height: 1.55;
 }
