@@ -2,6 +2,8 @@
  * - Loads manifest.json
  * - For repo zips: fetches the archive, extracts mod.json with JSZip, shows metadata
  * - For Google Drive links: uses metadata provided in the manifest
+ * All fetches resolve relative to the site root and work on GitHub Pages
+ * project subpaths, custom domains and local previews alike.
  */
 (function () {
   "use strict";
@@ -13,6 +15,39 @@
   const statCount = document.getElementById("statCount");
 
   let ALL_MODS = [];
+
+  // ---------- URL resolution (host-agnostic) ----------
+  // Builds a list of candidate absolute URLs for a repo-relative path so the
+  // site works whether it is served from "/" (user/org pages, local preview,
+  // Netlify root) or from a subpath like "/HockeyManager_mods/" (GitHub Pages
+  // project sites) and even when the page URL is missing its trailing slash.
+  function candidateUrls(rel) {
+    const out = [];
+    const base = document.baseURI.endsWith("/") ? document.baseURI : document.baseURI + "/";
+    out.push(new URL(rel, base).href);
+
+    // GitHub Pages project site: first path segment is the repository name.
+    if (/github\.io$/.test(location.hostname)) {
+      const seg = location.pathname.split("/").filter(Boolean)[0];
+      if (seg) out.push(location.origin + "/" + seg + "/" + rel.replace(/^\/+/, ""));
+    }
+    out.push(location.origin + "/" + rel.replace(/^\/+/, ""));
+    return Array.from(new Set(out));
+  }
+
+  async function fetchFirst(urls) {
+    let lastErr;
+    for (const u of urls) {
+      try {
+        const r = await fetch(u, { cache: "no-cache" });
+        if (r.ok) return r;
+        lastErr = new Error("HTTP " + r.status);
+      } catch (e) {
+        lastErr = e;
+      }
+    }
+    throw lastErr || new Error("fetch failed");
+  }
 
   // ---------- Drive link helpers ----------
   function driveId(url) {
@@ -41,8 +76,7 @@
   }
 
   async function readRepoMod(entry) {
-    const res = await fetch(entry.file, { cache: "no-cache" });
-    if (!res.ok) throw new Error("HTTP " + res.status + " для " + entry.file);
+    const res = await fetchFirst(candidateUrls(entry.file));
     const size = res.headers.get("content-length");
     const buf = await res.arrayBuffer();
     const zip = await JSZip.loadAsync(buf);
@@ -58,7 +92,7 @@
         version: "",
       },
       data,
-      { _download: entry.file, _size: size, _source: "repo" }
+      { _download: candidateUrls(entry.file)[0], _size: size, _source: "repo" }
     );
   }
 
@@ -84,7 +118,7 @@
         name: entry.name || (entry.file || "Мод").split("/").pop(),
         description: "Не удалось загрузить мод: " + e.message,
         _error: true,
-        _download: entry.source === "drive" ? driveDownload(entry.url) : entry.file,
+        _download: entry.source === "drive" ? driveDownload(entry.url) : candidateUrls(entry.file || "")[0],
         _source: entry.source || "repo",
       });
     }
@@ -200,11 +234,10 @@
     setupModal();
     let manifest;
     try {
-      const res = await fetch("manifest.json", { cache: "no-cache" });
-      if (!res.ok) throw new Error("HTTP " + res.status);
+      const res = await fetchFirst(candidateUrls("manifest.json"));
       manifest = await res.json();
     } catch (e) {
-      grid.innerHTML = '<div class="loading">Не удалось загрузить manifest.json: ' + esc(e.message) + "</div>";
+      grid.innerHTML = '<div class="loading">Не удалось загрузить manifest.json: ' + esc(e.message) + ". Проверьте, что файл есть в опубликованной ветке.</div>";
       return;
     }
 
