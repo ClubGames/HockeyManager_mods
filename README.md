@@ -1,15 +1,18 @@
 # HockeyManager — Моды
 
-Красивый статический сайт для раздачи модов (ZIP-архивов) для игры HockeyManager.
-Работает на GitHub Pages, не требует сервера и базы данных.
+Статический сайт каталога модов и сборок для **Hockey Simulator Manager**.
+Работает на GitHub Pages напрямую из ветки, без сборки, сервера и базы данных.
 
 ## Что внутри
 
 ```
-index.html          ← главная страница сайта
-assets/styles.css   ← оформление
-assets/app.js       ← логика: читает manifest.json и mod.json из архивов
-manifest.json       ← список модов (редактируете его, чтобы добавить мод)
+index.html          ← главная страница каталога
+assets/styles.css   ← оформление в палитре самой игры
+assets/app.js       ← чтение manifest.json и распаковка архивов в браузере
+assets/fonts/       ← локальные шрифты Oswald и Golos Text (woff2)
+assets/img/         ← эмблема игры, favicon и фон арены
+assets/vendor/      ← локальная копия JSZip
+manifest.json       ← список модов и ссылок на сборки игры
 mods/               ← ZIP-архивы модов из репозитория
 .nojekyll           ← отключает обработку Jekyll на GitHub Pages
 ```
