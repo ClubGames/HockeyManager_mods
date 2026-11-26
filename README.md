@@ -7,10 +7,10 @@
 
 ```
 index.html          ← главная страница каталога
-assets/styles.css   ← оформление в палитре самой игры
+assets/styles.css   ← светлое оформление страницы
 assets/app.js       ← чтение manifest.json и распаковка архивов в браузере
-assets/fonts/       ← локальные шрифты Oswald и Golos Text (woff2)
-assets/img/         ← эмблема игры, favicon и фон арены
+assets/fonts/       ← локальный шрифт Golos Text (woff2, 400–700)
+assets/img/         ← иконка приложения и favicon
 assets/vendor/      ← локальная копия JSZip
 manifest.json       ← список модов и ссылок на сборки игры
 mods/               ← ZIP-архивы модов из репозитория
