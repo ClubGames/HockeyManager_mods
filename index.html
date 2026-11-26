@@ -3,80 +3,277 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HockeyManager — Моды</title>
-  <meta name="description" content="Скачивайте игру и моды для HockeyManager: актуальные составы, календари и лиги." />
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <meta name="theme-color" content="#0b1420" />
+  <title>HockeyManager — Моды и сборки игры</title>
+  <meta name="description" content="Каталог модов и актуальные сборки Hockey Simulator Manager: реальные лиги, составы клубов, тренерские штабы, эмблемы и календари сезонов." />
+  <link rel="preload" href="assets/fonts/oswald-cyrillic-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/golos-text-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="assets/styles.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏒</text></svg>" />
+  <link rel="icon" type="image/png" href="assets/img/favicon.png" />
 </head>
 <body>
-  <div class="aurora" aria-hidden="true"></div>
-
   <header class="site-header">
-    <div class="brand">
-      <span class="brand-logo" aria-hidden="true">🏒</span>
-      <span class="brand-name">HockeyManager<b>Моды</b></span>
+    <div class="container header-inner">
+      <a class="brand" href="#">
+        <img class="brand-mark" src="assets/img/icon-game.png" alt="Эмблема Hockey Simulator Manager" width="38" height="38" />
+        <span class="brand-copy">
+          <span class="brand-name">Hockey Manager</span>
+          <span class="brand-tag">База модов</span>
+        </span>
+      </a>
+
+      <nav class="site-nav" aria-label="Навигация по странице">
+        <a href="#catalog">Моды</a>
+        <a href="#game">Скачать игру</a>
+        <a href="#install" class="hide-xs">Установка</a>
+        <button type="button" class="nav-action" id="howBtn">Добавить мод</button>
+      </nav>
     </div>
-    <nav class="site-nav">
-      <a href="#game">Скачать игру</a>
-      <a href="#mods">Моды</a>
-      <a href="#" id="howBtn">Как добавить</a>
-    </nav>
   </header>
 
   <main>
     <section class="hero">
-      <h1 id="heroTitle">HockeyManager — Моды</h1>
-      <p id="heroSubtitle" class="hero-sub">Скачивайте моды для вашей игры.</p>
-      <div class="hero-stats">
-        <div class="stat"><span class="stat-num" id="statCount">0</span><span class="stat-label">модов</span></div>
-        <div class="stat"><span class="stat-num">ZIP</span><span class="stat-label">формат</span></div>
-        <div class="stat"><span class="stat-num">🆓</span><span class="stat-label">бесплатно</span></div>
+      <div class="hero-backdrop" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-main">
+          <div class="eyebrow">
+            <span class="eyebrow-lamp" aria-hidden="true"></span>
+            <span>Хоккейный симулятор менеджера</span>
+          </div>
+          <h1 id="heroTitle">HockeyManager — Моды на игру</h1>
+          <p id="heroSubtitle" class="hero-sub">Скачивайте игру и моды: актуальные составы, календари и лиги.</p>
+
+          <div class="hero-actions">
+            <a href="#catalog" class="btn btn-primary">
+              <span>Перейти к модам</span>
+              <span class="btn-counter" id="heroModBadge" hidden></span>
+            </a>
+            <a href="#game" class="btn btn-secondary">Скачать игру</a>
+            <a href="https://clubgames.github.io/KHL_Manager/" target="_blank" rel="noopener" class="hero-web-link">
+              <span>Играть в браузере</span>
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M5 11L11 5M11 5H6.2M11 5V9.8" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <aside id="install" class="install-card" aria-labelledby="installTitle">
+          <div class="install-card-head">
+            <span class="install-kicker">Памятка игроку</span>
+            <h2 id="installTitle">Как подключить мод</h2>
+          </div>
+          <ol class="install-steps">
+            <li>
+              <span class="step-num">01</span>
+              <div>
+                <strong>Скачайте ZIP-архив лиги</strong>
+                <p>Распаковывать архив вручную не требуется — игра читает его сама.</p>
+              </div>
+            </li>
+            <li>
+              <span class="step-num">02</span>
+              <div>
+                <strong>Нажмите «Установить мод…»</strong>
+                <p>Кнопка находится на стартовом экране новой карьеры. Архив можно просто перетащить в окно игры.</p>
+              </div>
+            </li>
+            <li>
+              <span class="step-num">03</span>
+              <div>
+                <strong>Выберите лигу и клуб</strong>
+                <p>Эмблемы, составы, контракты и расписание регулярки подключатся автоматически.</p>
+              </div>
+            </li>
+          </ol>
+          <p class="install-foot">Одинаково работает на Windows, Android и в браузерной версии.</p>
+        </aside>
       </div>
-      <div class="search-wrap">
-        <input id="search" type="search" placeholder="Поиск по названию, автору или описанию…" autocomplete="off" />
-        <span class="search-icon" aria-hidden="true">🔍</span>
+      <div class="rink-rule" aria-hidden="true">
+        <span class="rink-blue"></span>
+        <span class="rink-red"></span>
+        <span class="rink-blue"></span>
+      </div>
+    </section>
+
+    <section id="catalog" class="catalog-section" aria-labelledby="catalogTitle">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-heading">
+            <div class="title-with-count">
+              <h2 id="catalogTitle">Доступные лиги и составы</h2>
+              <span class="count-badge" id="statCount">Загрузка…</span>
+            </div>
+            <p class="section-desc">Архивы проверяются прямо в браузере: вы сразу видите версию, список клубов и объём ростера до скачивания.</p>
+          </div>
+
+          <div class="search-wrap" id="searchWrap">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <circle cx="7" cy="7" r="4.75" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M10.6 10.6L13.8 13.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+            <input id="search" type="search" placeholder="Клуб, город, лига или автор…" autocomplete="off" aria-label="Поиск по каталогу модов" />
+            <button type="button" id="searchClear" class="search-clear" aria-label="Очистить запрос" hidden>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div id="mods" class="mods-grid mods-grid--single" aria-live="polite">
+          <div class="skeleton-card" aria-label="Загрузка каталога модов">
+            <div class="skel-col">
+              <div class="skel-line skel-sm"></div>
+              <div class="skel-line skel-lg"></div>
+              <div class="skel-line skel-md"></div>
+              <div class="skel-line skel-md"></div>
+              <div class="skel-btn"></div>
+            </div>
+            <div class="skel-col skel-crests"></div>
+          </div>
+        </div>
       </div>
     </section>
 
     <section id="game" class="game-section" aria-labelledby="gameTitle">
-      <h2 id="gameTitle">Скачать игру</h2>
-      <div class="game-links" id="gameLinks"></div>
-    </section>
+      <div class="container">
+        <div class="game-panel">
+          <div class="game-header">
+            <div>
+              <span class="section-kicker">Клиент игры</span>
+              <h2 id="gameTitle">Скачать игру</h2>
+              <p class="section-desc">Актуальные сборки Hockey Simulator Manager для ПК и смартфонов. Бесплатно, без учётных записей и встроенных покупок.</p>
+            </div>
+            <div class="game-ext-links">
+              <a href="https://clubgames.github.io/KHL_Manager/" target="_blank" rel="noopener" class="ext-link">
+                <span>Веб-версия</span>
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M5 11L11 5M11 5H6.2M11 5V9.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <a href="https://github.com/ClubGames/KHL_Manager/releases/tag/app" target="_blank" rel="noopener" class="ext-link">
+                <span>Описание релиза</span>
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M5 11L11 5M11 5H6.2M11 5V9.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
 
-    <section id="mods" class="mods-grid" aria-live="polite">
-      <div class="loading">Загрузка модов…</div>
+          <div class="game-links" id="gameLinks"></div>
+
+          <div class="game-footnotes">
+            <div class="footnote-item">
+              <strong>Защита SmartScreen в Windows</strong>
+              <span>Сборка не подписана коммерческим сертификатом: если при первом запуске появится окно фильтра Windows, выберите «Подробнее» → «Выполнить в любом случае».</span>
+            </div>
+            <div class="footnote-item">
+              <strong>Обновление без потери карьер</strong>
+              <span>Устанавливайте свежую версию прямо поверх прежней — сохранения и папка <code>mods</code> рядом с игрой остаются нетронутыми.</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>Моды для HockeyManager. Все права на игру принадлежат правообладателям.</p>
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="assets/img/icon-game.png" alt="" width="26" height="26" />
+        <div>
+          <div class="footer-title">Hockey Simulator Manager · Моды</div>
+          <p class="footer-copy">Пользовательские модификации для игры. Все названия клубов, лиг и товарные знаки принадлежат их законным правообладателям.</p>
+        </div>
+      </div>
+      <div class="footer-links">
+        <button type="button" class="link-btn" id="footerHowBtn">Как добавить свой мод</button>
+        <a href="https://github.com/ClubGames/KHL_Manager" target="_blank" rel="noopener">Проект на GitHub</a>
+      </div>
+    </div>
   </footer>
 
-  <!-- Modal "Как добавить мод" -->
+  <!-- Модальное окно состава мода -->
+  <div class="modal-backdrop" id="modDetailModal" hidden>
+    <div class="modal modal-wide" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+      <div class="modal-head">
+        <div>
+          <div class="modal-kicker" id="detailKicker">Состав архива</div>
+          <h2 id="detailTitle">Мод</h2>
+        </div>
+        <button type="button" class="modal-close" id="detailClose" aria-label="Закрыть окно">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+            <path d="M4 4L14 14M14 4L4 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body" id="detailBody"></div>
+      <div class="modal-foot" id="detailFoot"></div>
+    </div>
+  </div>
+
+  <!-- Модальное окно "Как добавить мод" -->
   <div class="modal-backdrop" id="howModal" hidden>
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="howTitle">
-      <button class="modal-close" id="howClose" aria-label="Закрыть">×</button>
-      <h2 id="howTitle">Как добавить мод</h2>
-      <p>Отредактируйте файл <code>manifest.json</code> в репозитории. Добавьте запись в массив <code>mods</code>:</p>
-      <h3>1. Архив из папки <code>mods/</code> репозитория</h3>
-      <pre><code>{
+      <div class="modal-head">
+        <div>
+          <div class="modal-kicker">Документация каталога</div>
+          <h2 id="howTitle">Как добавить мод на сайт</h2>
+        </div>
+        <button type="button" class="modal-close" id="howClose" aria-label="Закрыть окно">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+            <path d="M4 4L14 14M14 4L4 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-intro">Список раздаваемых архивов задаётся в файле <code>manifest.json</code> в корне репозитория (массив <code>mods</code>). Поддерживаются два способа хранения:</p>
+
+        <div class="doc-block">
+          <div class="doc-block-head">
+            <h3>1. ZIP-архив в папке <code>mods/</code> репозитория</h3>
+            <button type="button" class="copy-btn" data-copy-target="snippetRepo">Копировать</button>
+          </div>
+          <pre><code id="snippetRepo">{
   "source": "repo",
   "file": "mods/khl-2026-27.zip"
 }</code></pre>
-      <p class="hint">Данные (название, описание, автор, версия) берутся автоматически из <code>mod.json</code> внутри архива.</p>
-      <h3>2. Ссылка на Google Диск</h3>
-      <pre><code>{
+          <p class="hint">Название, описание, версия, эмблемы клубов и сводка по ростеру считываются автоматически из <code>mod.json</code>, <code>roster.json</code> и <code>schedule.json</code> внутри архива.</p>
+        </div>
+
+        <div class="doc-block">
+          <div class="doc-block-head">
+            <h3>2. Внешняя ссылка на Google Диск</h3>
+            <button type="button" class="copy-btn" data-copy-target="snippetDrive">Копировать</button>
+          </div>
+          <pre><code id="snippetDrive">{
   "source": "drive",
   "name": "НХЛ 2026/27",
-  "description": "Описание мода…",
+  "description": "Регулярный чемпионат, 32 клуба с актуальными составами.",
   "author": "ВашНик",
   "version": "1.0",
   "url": "https://drive.google.com/file/d/ID_ФАЙЛА/view?usp=sharing"
 }</code></pre>
-      <p class="hint">Для Google Диска укажите название и описание сами — сайт не может прочитать архив на Диске.</p>
-      <h3>Ссылки на скачивание игры</h3>
-      <p class="hint">Добавьте/измените массив <code>game.links</code> в <code>manifest.json</code> — они появятся в блоке «Скачать игру».</p>
+          <p class="hint">Для внешних ссылок укажите метаданные вручную — браузер не скачивает архив с Диска заранее. Обычная ссылка «Поделиться» сама преобразуется в прямую загрузку.</p>
+        </div>
+
+        <div class="doc-block">
+          <div class="doc-block-head">
+            <h3>Формат <code>mod.json</code> внутри архива</h3>
+            <button type="button" class="copy-btn" data-copy-target="snippetModJson">Копировать</button>
+          </div>
+          <pre><code id="snippetModJson">{
+  "name": "КХЛ 2026/27",
+  "description": "Описание сезона, количества клубов и особенностей ростера.",
+  "author": "ClubGames",
+  "version": "1.0",
+  "roster": "roster.json",
+  "schedule": "schedule.json"
+}</code></pre>
+          <p class="hint">Ссылки в блоке «Скачать игру» настраиваются в том же <code>manifest.json</code> через массив <code>game.links</code>.</p>
+        </div>
+      </div>
     </div>
   </div>
 
